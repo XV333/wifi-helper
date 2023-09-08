@@ -1,0 +1,16 @@
+import nmap
+
+def scan_network():
+    scanner = nmap.PortScanner()
+    target_network = "192.168.1.0/24"
+    scanner.scan(hosts=target_network, arguments='-sn')
+    hosts = scanner.all_hosts()
+
+    for host in hosts:
+        device_ip = host
+        mac_address = ""
+        if 'mac' in scanner[host]['addresses']:
+            mac_address = scanner[host]['addresses']['mac']
+        print(f"Device IP: {device_ip} | Device MAC: {mac_address}")
+
+scan_network()
