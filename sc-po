@@ -1,0 +1,17 @@
+import sys
+import socket
+
+ip = sys.argv[1]
+start_port = 10
+end_port = 65000
+
+for port in range(start_port, end_port + 1):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(0.2)
+        result = s.connect_ex((ip, port))
+        if result == 0:
+            print(f"Port {port} is open")
+        s.close()
+    except socket.error:
+        pass
